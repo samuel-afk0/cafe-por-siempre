@@ -40,7 +40,7 @@ const ModalLogin = ({ isOpen, onClose }: ModalLoginProps) => {
   // Lógica para manejar el inicio de sesión con Facebook
   const handleFacebookLogin = () => {
     const appId = "683751031267238";  // Reemplaza con tu ID de aplicación de Facebook
-    const redirectUri = "https://cafe-por-siempre.vercel.app/f"; // El URI al que Facebook redirigirá después de la autenticación.
+    const redirectUri = "https://cafe-por-siempre.vercel.app/"; // El URI al que Facebook redirigirá después de la autenticación.
     const facebookAuthUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=email,public_profile&response_type=code`;
 
     // Abre la URL de autorización de Facebook en una nueva ventana o navegador
