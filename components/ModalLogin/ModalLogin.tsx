@@ -10,16 +10,30 @@ const ModalLogin = ({ isOpen, onClose }: ModalLoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [animationState, setAnimationState] = useState<'entering' | 'entered' | 'exiting' | 'exited'>('exited');
-  
+
   useEffect(() => {
-    if (isOpen) {
-      setAnimationState('entering');
-      setTimeout(() => setAnimationState('entered'), 300);
-    } else if (animationState !== 'exited') {
-      setAnimationState('exiting');
-      setTimeout(() => setAnimationState('exited'), 300);
-    }
-  }, [isOpen]);
+    // Cargar el SDK de Facebook
+    const loadFacebookSDK = () => {
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: '1709742513239481', // Tu App ID de Facebook
+          cookie: true,
+          xfbml: true,
+          version: 'v12.0',
+        });
+      };
+
+      (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk.js';
+        fjs.parentNode?.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    };
+
+    loadFacebookSDK();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +41,7 @@ const ModalLogin = ({ isOpen, onClose }: ModalLoginProps) => {
     console.log({ email, password });
     handleClose();
   };
-  
+
   const handleClose = () => {
     setAnimationState('exiting');
     setTimeout(() => {
@@ -39,29 +53,38 @@ const ModalLogin = ({ isOpen, onClose }: ModalLoginProps) => {
 
   // Lógica para manejar el inicio de sesión con Facebook
   const handleFacebookLogin = () => {
-    const appId = "1709742513239481";  // Reemplaza con tu ID de aplicación de Facebook
-    const redirectUri = "https://cafe-por-siempre.vercel.app/"; // El URI al que Facebook redirigirá después de la autenticación.
-    const facebookAuthUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=email,public_profile&response_type=code`;
-
-    // Abre la URL de autorización de Facebook en una nueva ventana o navegador
-    window.location.href = facebookAuthUrl;
+    window.FB.login(
+      (response: any) => {
+        if (response.authResponse) {
+          // Autenticación exitosa
+          const accessToken = response.authResponse.accessToken;
+          window.FB.api('/me?fields=email,name', (userInfo: any) => {
+            console.log(userInfo);
+            // Aquí puedes usar el token para hacer más cosas, por ejemplo, enviar el `accessToken` al backend si lo necesitas
+          });
+        } else {
+          console.log('Usuario no autenticado');
+        }
+      },
+      { scope: 'email,public_profile' }
+    );
   };
 
   if (animationState === 'exited') return null;
 
   return (
-    <div 
-      className={`fixed inset-0 flex items-center justify-center z-50 transition-all duration-500 ${animationState === 'entering' || animationState === 'entered' ? 'bg-black/50 backdrop-blur-sm opacity-100' : 'bg-black/0 backdrop-blur-none opacity-0'}`} 
+    <div
+      className={`fixed inset-0 flex items-center justify-center z-50 transition-all duration-500 ${animationState === 'entering' || animationState === 'entered' ? 'bg-black/50 backdrop-blur-sm opacity-100' : 'bg-black/0 backdrop-blur-none opacity-0'}`}
       style={{ height: '100vh' }}
       onClick={handleClose}
     >
-      <div 
+      <div
         onClick={(e) => e.stopPropagation()}
         className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-md p-8 rounded-xl border border-gray-700 max-w-md w-full mx-4 transition-all duration-500 ${animationState === 'entering' || animationState === 'entered' ? 'opacity-100 scale-100 shadow-[0_0_25px_rgba(139,92,246,0.3)]' : 'opacity-0 scale-90'}`}
       >
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-white">Iniciar Sesión</h2>
-          <button 
+          <button
             onClick={handleClose}
             className="text-gray-400 hover:text-white transition-colors"
           >
@@ -106,13 +129,13 @@ const ModalLogin = ({ isOpen, onClose }: ModalLoginProps) => {
           >
             Iniciar Sesión
           </button>
-          
+
           <div className="flex items-center my-4">
             <div className="flex-grow h-px bg-gray-700"></div>
             <span className="px-3 text-sm text-gray-500">o</span>
             <div className="flex-grow h-px bg-gray-700"></div>
           </div>
-          
+
           <button
             type="button"
             onClick={handleFacebookLogin}
