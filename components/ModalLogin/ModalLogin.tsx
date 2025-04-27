@@ -53,21 +53,12 @@ const ModalLogin = ({ isOpen, onClose }: ModalLoginProps) => {
 
   // Lógica para manejar el inicio de sesión con Facebook
   const handleFacebookLogin = () => {
-    window.FB.login(
-      (response: any) => {
-        if (response.authResponse) {
-          // Autenticación exitosa
-          const accessToken = response.authResponse.accessToken;
-          window.FB.api('/me?fields=email,name', (userInfo: any) => {
-            console.log(userInfo);
-            // Aquí puedes usar el token para hacer más cosas, por ejemplo, enviar el `accessToken` al backend si lo necesitas
-          });
-        } else {
-          console.log('Usuario no autenticado');
-        }
-      },
-      { scope: 'email,public_profile' }
-    );
+    const appId = "TU_APP_ID";  // Reemplaza con tu ID de aplicación de Facebook
+    const redirectUri = "TU_REDIRECT_URI"; // El URI al que Facebook redirigirá después de la autenticación.
+    const facebookAuthUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUri}&scope=email,public_profile&response_type=code`;
+
+    // Abre la URL de autorización de Facebook en una nueva ventana o navegador
+    window.location.href = facebookAuthUrl;
   };
 
   if (animationState === 'exited') return null;
