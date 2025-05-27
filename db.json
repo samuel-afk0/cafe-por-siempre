@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Samuel Alvarado",
+      "email": "testuser@gmail.com",
+      "password": "123456",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "ssss",
+      "email": "samuel@gmail.com",
+      "password": "1122",
+      "role": "usuario"
+    },
+    {
+      "id": 3,
+      "username": "kevin ",
+      "email": "kevin@gmail.com",
+      "password": "123456",
+      "role": "usuario"
+    }
+  ],
+  "carts": [
+    {
+      "cartId": "cart_1",
+      "userId": 1,
+      "items": [
+        { "productId": 101, "quantity": 2 },
+        { "productId": 102, "quantity": 1 }
+      ]
+    },
+    {
+      "cartId": "cart_2",
+      "userId": 2,
+      "items": [
+        { "productId": 103, "quantity": 3 }
+      ]
+    }
+  ],
+  "carrito":[
+    {
+      "id": 1,
+      "idUsuario": 1,
+      "idsProductos": []
+
+
+    }
+
+  ]
+  
+}

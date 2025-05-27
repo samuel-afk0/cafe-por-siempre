@@ -1,0 +1,195 @@
+{
+    "categorias": [
+      {
+        "categoria": "Café",
+        "subcategorias": [
+          {
+            "nombre": "Café en grano",
+            "productos": [
+              {
+                "id": "p1",
+                "nombre": "Café Colombia Supremo",
+                "precio": 12.5,
+                "stock": 25,
+                "imagenes": [
+                  "/Cafe Colombia Supremo.jfif",
+                  "/Café Colombia Supremo 2.jfif"
+                ]
+              },
+              {
+                "id": "p2",
+                "nombre": "Café Etiopía Arábica",
+                "precio": 14.0,
+                "stock": 30,
+                "imagenes": [
+                  "/CafeEtiopiaArabica.jfif",
+                  "/CafeEtiopiaArabica2.jfif"
+                ]
+              }
+            ]
+          },
+          {
+            "nombre": "Café molido",
+            "productos": [
+              {
+                "id": "p3",
+                "nombre": "Café Molido Brasil",
+                "precio": 10.0,
+                "stock": 40,
+                "imagenes": [
+                  "/CaféMolidoBrasil.jfif",
+                  "/CaféMolidoBrasil2.jfif"
+                ]
+              },
+              {
+                "id": "p4",
+                "nombre": "Café Molido Perú",
+                "precio": 11.5,
+                "stock": 35,
+                "imagenes": [
+                  "/CaféMolidoPerú.jfif",
+                  "/CaféMolidoPerú2.jfif"
+                ]
+              }
+            ]
+          },
+          {
+            "nombre": "Cápsulas de café",
+            "productos": [
+              {
+                "id": "p5",
+                "nombre": "Cápsulas Espresso",
+                "precio": 8.0,
+                "stock": 50,
+                "imagenes": [
+                  "/CápsulasEspresso.jfif",
+                  "/CápsulasEspresso2.jfif"
+                ]
+              },
+              {
+                "id": "p6",
+                "nombre": "Cápsulas Lungo",
+                "precio": 8.5,
+                "stock": 45,
+                "imagenes": [
+                  "/CápsulasLungo.jfif",
+                  "/CápsulasLungo2.jfif"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "categoria": "Bebidas Frías",
+        "subcategorias": [
+          {
+            "nombre": "Café Frío",
+            "productos": [
+              {
+                "id": "p7",
+                "nombre": "Iced Latte",
+                "precio": 4.5,
+                "stock": 60,
+                "imagenes": [
+                  "/CaféFrío.jfif",
+                  "/CaféFrío2.jfif"
+                ]
+              },
+              {
+                "id": "p8",
+                "nombre": "Cold Brew",
+                "precio": 5.0,
+                "stock": 55,
+                "imagenes": [
+                  "/ColdBrew.jfif",
+                  "/ColdBrew2.jfif"
+                ]
+              }
+            ]
+          },
+          {
+            "nombre": "Jugos y Smoothies",
+            "productos": [
+              {
+                "id": "p9",
+                "nombre": "Jugo de Naranja Natural",
+                "precio": 3.0,
+                "stock": 70,
+                "imagenes": [
+                  "/JugodeNaranjaNatural.jfif",
+                  "/JugodeNaranjaNatural2.jfif"
+                ]
+              },
+              {
+                "id": "p10",
+                "nombre": "Smoothie de Fresa",
+                "precio": 4.0,
+                "stock": 65,
+                "imagenes": [
+                  "/SmoothiedeFresa.jfif",
+                  "/SmoothiedeFresa2.jfif"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "categoria": "Dulces y Snacks",
+        "subcategorias": [
+          {
+            "nombre": "Pastelería",
+            "productos": [
+              {
+                "id": "p11",
+                "nombre": "Croissant",
+                "precio": 2.5,
+                "stock": 80,
+                "imagenes": [
+                  "/Croissant.jfif",
+                  "/Croissant2.jfif"
+                ]
+              },
+              {
+                "id": "p12",
+                "nombre": "Muffin de Arándanos",
+                "precio": 3.0,
+                "stock": 75,
+                "imagenes": [
+                  "/MuffindeArándanos.jfif",
+                  "/MuffindeArándanos2.jfif"
+                ]
+              }
+            ]
+          },
+          {
+            "nombre": "Snacks Salados",
+            "productos": [
+              {
+                "id": "p13",
+                "nombre": "Bagel con Queso Crema",
+                "precio": 3.5,
+                "stock": 60,
+                "imagenes": [
+                  "/BagelconQuesoCrema.jfif",
+                  "/BagelconQuesoCrema2.jfif"
+                ]
+              },
+              {
+                "id": "p14",
+                "nombre": "Sándwich de Jamón y Queso",
+                "precio": 4.0,
+                "stock": 55,
+                "imagenes": [
+                  "/SándwichdeJamónyQueso.jfif",
+                  "/SándwichdeJamónyQueso2.jfif"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

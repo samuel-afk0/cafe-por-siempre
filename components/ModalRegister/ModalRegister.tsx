@@ -1,22 +1,19 @@
 'use client';
 import { useState, useEffect } from 'react';
-import ModalRegister from '../ModalRegister/ModalRegister';
 
-type ModalLoginProps = {
+type ModalRegisterProps = {
   isOpen: boolean;
   onClose: () => void;
-  setUserName?: (name: string) => void;
 };
 
-const ModalLogin = ({ isOpen, onClose, setUserName }: ModalLoginProps) => {
+const ModalRegister = ({ isOpen, onClose }: ModalRegisterProps) => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [registerMessage, setRegisterMessage] = useState<string | null>(null);
+  const [registerSuccess, setRegisterSuccess] = useState(false);
   const [animationState, setAnimationState] = useState<'entering' | 'entered' | 'exiting' | 'exited'>('exited');
-  const [loginMessage, setLoginMessage] = useState<string | null>(null);
-  const [loginSuccess, setLoginSuccess] = useState(false);
-  const [modalUserName, setModalUserName] = useState<string | null>(null);
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  
+
   useEffect(() => {
     if (isOpen) {
       setAnimationState('entering');
@@ -29,53 +26,40 @@ const ModalLogin = ({ isOpen, onClose, setUserName }: ModalLoginProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Clear previous user data
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userId');
+    setRegisterMessage(null);
     try {
-      const res = await fetch('/api/login', {
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ username, email, password })
       });
       const data = await res.json();
       if (data.success) {
-        setLoginMessage('¡Inicio de sesión exitoso!');
-        setLoginSuccess(true);
-        setModalUserName(data.user.username);
-        if (setUserName) setUserName(data.user.username);
-        setUserNameLocal(data.user.username, data.user.id);
+        setRegisterMessage('¡Registro exitoso! Ahora puedes iniciar sesión.');
+        setRegisterSuccess(true);
         setTimeout(() => {
-          setLoginMessage(null);
+          setRegisterMessage(null);
           handleClose();
         }, 1500);
       } else {
-        setLoginMessage(data.message || 'Credenciales inválidas');
-        setLoginSuccess(false);
+        setRegisterMessage(data.message || 'Error al registrar');
+        setRegisterSuccess(false);
       }
     } catch {
-      setLoginMessage('Error en el servidor');
-      setLoginSuccess(false);
+      setRegisterMessage('Error en el servidor');
+      setRegisterSuccess(false);
     }
   };
 
-  // Guarda el nombre de usuario y el id en localStorage
-  const setUserNameLocal = (name: string, id: string) => {
-    localStorage.setItem('userName', name);
-    localStorage.setItem('userId', id);
-  };
-  
   const handleClose = () => {
     setAnimationState('exiting');
     setTimeout(() => {
       onClose();
+      setUsername('');
       setEmail('');
       setPassword('');
     }, 300);
   };
-
-  // Lógica para manejar el inicio de sesión con Facebook
- 
 
   if (animationState === 'exited') return null;
 
@@ -90,7 +74,7 @@ const ModalLogin = ({ isOpen, onClose, setUserName }: ModalLoginProps) => {
         className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-md p-8 rounded-xl border border-gray-700 max-w-md w-full mx-4 transition-all duration-500 ${animationState === 'entering' || animationState === 'entered' ? 'opacity-100 scale-100 shadow-[0_0_25px_rgba(139,92,246,0.3)]' : 'opacity-0 scale-90'}`}
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Iniciar Sesión</h2>
+          <h2 className="text-2xl font-bold text-white">Registrarse</h2>
           <button 
             onClick={handleClose}
             className="text-gray-400 hover:text-white transition-colors"
@@ -100,11 +84,23 @@ const ModalLogin = ({ isOpen, onClose, setUserName }: ModalLoginProps) => {
             </svg>
           </button>
         </div>
-
         <form onSubmit={handleSubmit} className="space-y-6">
-          {loginMessage && (
-            <div className={`text-center p-2 rounded-md mb-2 ${loginSuccess ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>{loginMessage}</div>
+          {registerMessage && (
+            <div className={`text-center p-2 rounded-md mb-2 ${registerSuccess ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>{registerMessage}</div>
           )}
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
+              Nombre de usuario
+            </label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
+            />
+          </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
               Correo Electrónico
@@ -134,35 +130,20 @@ const ModalLogin = ({ isOpen, onClose, setUserName }: ModalLoginProps) => {
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white py-2 px-4 rounded-md hover:opacity-90 transition-opacity"
-            disabled={loginSuccess}
-            style={{ display: loginSuccess ? 'none' : 'block' }}
-          >
-            Iniciar Sesión
-          </button>
-          {loginSuccess && modalUserName && (
-            <div className="w-full text-center py-2 px-4 rounded-md bg-gradient-to-r from-green-600 to-green-400 text-white font-semibold text-lg mt-2 shadow-md">
-              Bienvenido, {modalUserName}
-            </div>
-          )}
-          <div className="flex items-center my-4">
-            <div className="flex-grow h-px bg-gray-700"></div>
-            <span className="px-3 text-sm text-gray-500">o</span>
-            <div className="flex-grow h-px bg-gray-700"></div>
-          </div>
-          <button
-            type="button"
-            onClick={() => setIsRegisterModalOpen(true)}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white py-2 px-4 rounded-md hover:opacity-90 transition-opacity"
+            disabled={registerSuccess}
+            style={{ display: registerSuccess ? 'none' : 'block' }}
           >
             Registrarse
           </button>
+          {registerSuccess && (
+            <div className="w-full text-center py-2 px-4 rounded-md bg-gradient-to-r from-green-600 to-green-400 text-white font-semibold text-lg mt-2 shadow-md">
+              ¡Registro exitoso!
+            </div>
+          )}
         </form>
-        {isRegisterModalOpen && (
-          <ModalRegister isOpen={isRegisterModalOpen} onClose={() => setIsRegisterModalOpen(false)} />
-        )}
       </div>
     </div>
   );
 };
 
-export default ModalLogin;
+export default ModalRegister;
