@@ -2,6 +2,12 @@
 import { useState, useEffect } from 'react';
 import ModalRegister from '../ModalRegister/ModalRegister';
 
+declare global {
+  interface Window {
+    openLoginModal?: () => void;
+  }
+}
+
 type ModalLoginProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -26,6 +32,20 @@ const ModalLogin = ({ isOpen, onClose, setUserName }: ModalLoginProps) => {
       setTimeout(() => setAnimationState('exited'), 300);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    window.openLoginModal = () => {
+      // Cierra todos los demás modales
+      window.dispatchEvent(new Event('closeAllModals'));
+      if (!isOpen) onClose();
+      setTimeout(() => {
+        if (!isOpen) onClose();
+      }, 10);
+    };
+    return () => {
+      if (window.openLoginModal) delete window.openLoginModal;
+    };
+  }, [isOpen, onClose]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,7 +101,7 @@ const ModalLogin = ({ isOpen, onClose, setUserName }: ModalLoginProps) => {
 
   return (
     <div 
-      className={`fixed inset-0 flex items-center justify-center z-50 transition-all duration-500 ${animationState === 'entering' || animationState === 'entered' ? 'bg-black/50 backdrop-blur-sm opacity-100' : 'bg-black/0 backdrop-blur-none opacity-0'}`} 
+      className={`fixed inset-0 flex items-center justify-center z-[14000] transition-all duration-500 ${animationState === 'entering' || animationState === 'entered' ? 'bg-black/50 backdrop-blur-sm opacity-100' : 'bg-black/0 backdrop-blur-none opacity-0'}`} 
       style={{ height: '100vh' }}
       onClick={handleClose}
     >

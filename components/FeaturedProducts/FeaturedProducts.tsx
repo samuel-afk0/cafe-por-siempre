@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import stock from "../../stock.json";
+import SocialShowcase from "./SocialShowcase";
 
 interface FeaturedProduct {
   id: string;
@@ -109,7 +110,7 @@ const FeaturedProducts = () => {
     <>
       <section
         ref={sectionRef}
-        className="py-20 bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white relative overflow-hidden"
+        className="py-20 bg-black text-white relative overflow-hidden"
       >
         <div
           className={`container mx-auto px-4 transform transition-all duration-1000 ease-out ${
@@ -124,9 +125,7 @@ const FeaturedProducts = () => {
               <div
                 ref={el => productRefs.current[index] = el}
                 key={product.nombre + product.subcategoria}
-                className={`bg-gradient-to-br from-gray-900 via-black to-gray-800 rounded-3xl shadow-2xl overflow-hidden hover:scale-105 hover:shadow-red-700/30 transition-all duration-700 border-2 border-gray-800 cursor-pointer ${
-                  visibleProducts.has(index) ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-                }`}
+                className={`bg-black rounded-2xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-green-700/20 transition-all duration-500 border border-gray-800 cursor-pointer ${visibleProducts.has(index) ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"}`}
                 style={{
                   position: visibleProducts.has(index) ? "sticky" : "relative",
                   top: visibleProducts.has(index) ? `${index * 2}rem` : "auto",
@@ -134,26 +133,26 @@ const FeaturedProducts = () => {
                 }}
                 onClick={() => handleProductClick(product)}
               >
-                <div className="relative h-56 group">
+                <div className="relative h-56">
                   <Image
                     src={product.imagenes[0]}
                     alt={product.nombre}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute bottom-2 right-2 bg-black/70 px-3 py-1 rounded-full text-xs text-red-400 font-bold shadow-lg backdrop-blur-sm">
+                  <div className="absolute bottom-2 right-2 bg-gray-900/80 px-3 py-1 rounded-full text-xs text-gray-200 font-bold shadow backdrop-blur-sm border border-gray-700">
                     {product.categoria} / {product.subcategoria}
                   </div>
                 </div>
-                <div className="p-7 flex flex-col gap-2">
-                  <h3 className="text-2xl font-bold mb-1 text-yellow-300 drop-shadow">{product.nombre}</h3>
+                <div className="p-6 flex flex-col gap-2">
+                  <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors duration-300">{product.nombre}</h3>
                   <p className="text-gray-300 mb-2">
                     Stock: <span className="font-semibold text-white">{product.stock}</span>
                   </p>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-3xl font-extrabold text-yellow-400 drop-shadow">${product.precio}</span>
+                    <span className="text-2xl font-extrabold text-green-400 drop-shadow">${product.precio}</span>
                     <button
-                      className="bg-yellow-500/90 text-black px-6 py-2 rounded-full font-bold shadow hover:bg-yellow-400 transition-colors text-lg"
+                      className="bg-gray-200 hover:bg-gray-300 text-black px-6 py-2 rounded-lg font-bold shadow border border-gray-400 transition-colors text-lg"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleProductClick(product);
@@ -168,13 +167,14 @@ const FeaturedProducts = () => {
           </div>
         </div>
       </section>
+      <SocialShowcase />
 
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 animate-fade-in">
-          <div className="bg-gradient-to-br from-gray-900 via-black to-gray-800 p-10 rounded-3xl shadow-2xl max-w-3xl w-full mx-auto relative border-4 border-red-600 animate-pop-in flex flex-col md:flex-row gap-8 items-center md:items-stretch">
-            <div className="flex-shrink-0 flex items-center justify-center w-full md:w-[340px] h-[340px] bg-gray-800 rounded-2xl overflow-hidden shadow-lg border-2 border-red-600 relative">
+          <div className="bg-black p-10 rounded-3xl shadow-2xl max-w-3xl w-full mx-auto relative border-2 border-green-600 animate-pop-in flex flex-col md:flex-row gap-8 items-center md:items-stretch">
+            <div className="flex-shrink-0 flex items-center justify-center w-full md:w-[340px] h-[340px] bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-700 relative">
               <button
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-red-600 hover:text-white text-red-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-green-600 hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
                 onClick={e => { e.stopPropagation(); setCurrentImage((prev) => (prev - 1 + selectedProduct.imagenes.length) % selectedProduct.imagenes.length); }}
                 aria-label="Previous image"
               >
@@ -182,7 +182,7 @@ const FeaturedProducts = () => {
               </button>
               <Image src={selectedProduct.imagenes[currentImage]} alt={selectedProduct.nombre} width={320} height={320} className="object-cover w-full h-full rounded-2xl transition-all duration-500" />
               <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-red-600 hover:text-white text-red-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-green-600 hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
                 onClick={e => { e.stopPropagation(); setCurrentImage((prev) => (prev + 1) % selectedProduct.imagenes.length); }}
                 aria-label="Next image"
               >
@@ -190,10 +190,10 @@ const FeaturedProducts = () => {
               </button>
             </div>
             <div className="flex-1 flex flex-col justify-between">
-              <span className="text-xs text-yellow-400 uppercase font-bold tracking-widest mb-2 block">
+              <span className="text-xs text-gray-400 uppercase font-bold tracking-widest mb-2 block">
                 {selectedProduct.categoria} / {selectedProduct.subcategoria}
               </span>
-              <h3 className="text-3xl font-extrabold mb-5 text-yellow-300 drop-shadow">
+              <h3 className="text-3xl font-extrabold mb-5 text-white drop-shadow">
                 {selectedProduct.nombre}
               </h3>
               <div className="flex gap-3 mb-6">
@@ -204,11 +204,11 @@ const FeaturedProducts = () => {
                     alt={selectedProduct.nombre}
                     width={70}
                     height={70}
-                    className="rounded-xl shadow-lg border-2 border-yellow-400 bg-white object-cover"
+                    className="rounded-xl shadow border border-gray-700 bg-gray-900 object-cover"
                   />
                 ))}
               </div>
-              <span className="text-2xl font-bold text-yellow-400 mb-2 block">${selectedProduct.precio}</span>
+              <span className="text-2xl font-bold text-green-400 mb-2 block">${selectedProduct.precio}</span>
               <p className="text-gray-200 mb-4">
                 Stock: <span className="font-semibold text-white">{selectedProduct.stock}</span>
               </p>
@@ -223,11 +223,11 @@ const FeaturedProducts = () => {
                   max={selectedProduct.stock}
                   value={cantidad}
                   onChange={(e) => setCantidad(Number(e.target.value))}
-                  className="w-20 px-3 py-2 border-2 border-yellow-400 rounded-lg bg-[#232946] text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="w-20 px-3 py-2 border border-green-600 rounded-lg bg-gray-900 text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
               </div>
               <button
-                className="bg-yellow-400 text-black px-6 py-3 rounded-full font-bold shadow-lg hover:bg-yellow-300 transition-colors text-xl w-full mb-3 animate-bounce-once"
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-bold shadow-lg transition-colors text-xl w-full mb-3 animate-bounce-once"
                 onClick={() => {
                   const userId = localStorage.getItem("userId") || "guest";
                   const cartKey = `cart_${userId}`;
@@ -258,7 +258,7 @@ const FeaturedProducts = () => {
               </button>
             </div>
             <button
-              className="absolute top-4 right-4 text-red-400 hover:text-red-200 text-3xl font-extrabold bg-black/30 rounded-full w-12 h-12 flex items-center justify-center transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-extrabold bg-gray-800 rounded-full w-12 h-12 flex items-center justify-center transition-colors"
               onClick={() => setSelectedProduct(null)}
               aria-label="Cerrar modal"
             >
