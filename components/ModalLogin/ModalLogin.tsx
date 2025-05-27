@@ -123,7 +123,7 @@ const ModalLogin = ({ isOpen, onClose, setUserName }: ModalLoginProps) => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {loginMessage && (
-            <div className={`text-center p-2 rounded-md mb-2 ${loginSuccess ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>{loginMessage}</div>
+            <div className={`text-center p-2 rounded-md mb-2 ${loginSuccess ? 'bg-[#6F4E37] text-white' : 'bg-[#6F4E37] text-white'}`}>{loginMessage}</div>
           )}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">

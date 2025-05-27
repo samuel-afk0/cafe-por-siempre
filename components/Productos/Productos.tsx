@@ -69,7 +69,7 @@ const Productos = () => {
                   </div>
                 </div>
                 <div className="p-6 flex flex-col gap-2">
-                  <span className="text-xl font-bold text-white group-hover:text-green-400 transition-colors duration-300">{producto.nombre}</span>
+                  <span className="text-xl font-bold text-white group-hover:text-[#6F4E37] transition-colors duration-300">{producto.nombre}</span>
                   <span className="text-lg font-semibold text-gray-300">Precio: ${producto.precio}</span>
                   <span className="text-sm text-gray-400">Stock: {producto.stock}</span>
                   <button
@@ -87,10 +87,10 @@ const Productos = () => {
 
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 animate-fade-in">
-          <div className="bg-black p-10 rounded-3xl shadow-2xl max-w-3xl w-full mx-auto relative border-2 border-green-600 animate-pop-in flex flex-col md:flex-row gap-8 items-center md:items-stretch">
+          <div className="bg-black p-10 rounded-3xl shadow-2xl max-w-3xl w-full mx-auto relative border-2 border-[#6F4E37] animate-pop-in flex flex-col md:flex-row gap-8 items-center md:items-stretch">
             <div className="flex-shrink-0 flex items-center justify-center w-full md:w-[340px] h-[340px] bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-700 relative">
               <button
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-green-600 hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-[#6F4E37] hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
                 onClick={e => { e.stopPropagation(); setCurrentImage((prev) => (prev - 1 + selectedProduct.imagenes.length) % selectedProduct.imagenes.length); }}
                 aria-label="Previous image"
               >
@@ -98,7 +98,7 @@ const Productos = () => {
               </button>
               <Image src={selectedProduct.imagenes[currentImage]} alt={selectedProduct.nombre} width={320} height={320} className="object-cover w-full h-full rounded-2xl transition-all duration-500" />
               <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-green-600 hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-[#6F4E37] hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
                 onClick={e => { e.stopPropagation(); setCurrentImage((prev) => (prev + 1) % selectedProduct.imagenes.length); }}
                 aria-label="Next image"
               >
@@ -124,7 +124,7 @@ const Productos = () => {
                   />
                 ))}
               </div>
-              <span className="text-2xl font-bold text-green-400 mb-2 block">${selectedProduct.precio}</span>
+              <span className="text-2xl font-bold text-[#6F4E37] mb-2 block">${selectedProduct.precio}</span>
               <p className="text-gray-200 mb-4">
                 Stock: <span className="font-semibold text-white">{selectedProduct.stock}</span>
               </p>
@@ -139,11 +139,11 @@ const Productos = () => {
                   max={selectedProduct.stock}
                   value={cantidad}
                   onChange={(e) => setCantidad(Number(e.target.value))}
-                  className="w-20 px-3 py-2 border border-green-600 rounded-lg bg-gray-900 text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-green-600"
+                  className="w-20 px-3 py-2 border border-[#6F4E37] rounded-lg bg-gray-900 text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-[#6F4E37]"
                 />
               </div>
               <button
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-bold shadow-lg transition-colors text-xl w-full mb-3 animate-bounce-once"
+                className="bg-[#6F4E37] hover:bg-[#5a3c28] text-white px-6 py-3 rounded-full font-bold shadow-lg transition-colors text-xl w-full mb-3 animate-bounce-once"
                 onClick={() => {
                   const userId = localStorage.getItem("userId");
                   if (!userId || userId === "guest") {

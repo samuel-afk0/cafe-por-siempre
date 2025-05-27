@@ -86,7 +86,7 @@ const ModalRegister = ({ isOpen, onClose }: ModalRegisterProps) => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           {registerMessage && (
-            <div className={`text-center p-2 rounded-md mb-2 ${registerSuccess ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>{registerMessage}</div>
+            <div className={`text-center p-2 rounded-md mb-2 ${registerSuccess ? 'bg-[#6F4E37] text-white' : 'bg-[#6F4E37] text-white'}`}>{registerMessage}</div>
           )}
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">

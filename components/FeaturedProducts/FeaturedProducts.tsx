@@ -112,13 +112,16 @@ const FeaturedProducts = () => {
         ref={sectionRef}
         className="py-20 bg-black text-white relative overflow-hidden"
       >
-        <div
-          className={`container mx-auto px-4 transform transition-all duration-1000 ease-out ${
-            sectionVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-          }`}
-        >
-          <h2 className="text-5xl font-extrabold text-center lg:text-left mb-14 tracking-tight drop-shadow-lg text-red-600">
-            Café por Siempre
+        {/* Partículas animadas café */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute left-1/4 top-1/3 w-32 h-32 bg-[#6F4E37]/20 rounded-full blur-2xl animate-pulse-slow-cafe shadow-[#6F4E37]/40" />
+          <div className="absolute right-1/4 top-1/2 w-24 h-24 bg-[#a67c52]/20 rounded-full blur-2xl animate-pulse-slow-cafe shadow-[#a67c52]/40" />
+          <div className="absolute right-1/3 bottom-1/4 w-20 h-20 bg-[#bfa27a]/20 rounded-full blur-2xl animate-pulse-cafe shadow-[#bfa27a]/40" />
+          <div className="absolute left-1/3 bottom-1/4 w-28 h-28 bg-[#4b2e19]/20 rounded-full blur-2xl animate-pulse-cafe shadow-[#4b2e19]/40" />
+        </div>
+        <div className={`container mx-auto px-4 transform transition-all duration-1000 ease-out relative z-10 ${sectionVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"}`}>
+          <h2 className="text-5xl font-extrabold text-center lg:text-left mb-14 tracking-tight drop-shadow-lg">
+            Nuestros Productos
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {featured.map((product, index) => (
@@ -145,12 +148,12 @@ const FeaturedProducts = () => {
                   </div>
                 </div>
                 <div className="p-6 flex flex-col gap-2">
-                  <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors duration-300">{product.nombre}</h3>
+                  <h3 className="text-xl font-bold text-white group-hover:text-[#6F4E37] transition-colors duration-300">{product.nombre}</h3>
                   <p className="text-gray-300 mb-2">
                     Stock: <span className="font-semibold text-white">{product.stock}</span>
                   </p>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-2xl font-extrabold text-green-400 drop-shadow">${product.precio}</span>
+                    <span className="text-2xl font-extrabold text-[#6F4E37] drop-shadow">${product.precio}</span>
                     <button
                       className="bg-gray-200 hover:bg-gray-300 text-black px-6 py-2 rounded-lg font-bold shadow border border-gray-400 transition-colors text-lg"
                       onClick={(e) => {
@@ -171,10 +174,10 @@ const FeaturedProducts = () => {
 
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 animate-fade-in">
-          <div className="bg-black p-10 rounded-3xl shadow-2xl max-w-3xl w-full mx-auto relative border-2 border-green-600 animate-pop-in flex flex-col md:flex-row gap-8 items-center md:items-stretch">
+          <div className="bg-black p-10 rounded-3xl shadow-2xl max-w-3xl w-full mx-auto relative border-2 border-[#6F4E37] animate-pop-in flex flex-col md:flex-row gap-8 items-center md:items-stretch">
             <div className="flex-shrink-0 flex items-center justify-center w-full md:w-[340px] h-[340px] bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-700 relative">
               <button
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-green-600 hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-[#6F4E37] hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
                 onClick={e => { e.stopPropagation(); setCurrentImage((prev) => (prev - 1 + selectedProduct.imagenes.length) % selectedProduct.imagenes.length); }}
                 aria-label="Previous image"
               >
@@ -182,7 +185,7 @@ const FeaturedProducts = () => {
               </button>
               <Image src={selectedProduct.imagenes[currentImage]} alt={selectedProduct.nombre} width={320} height={320} className="object-cover w-full h-full rounded-2xl transition-all duration-500" />
               <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-green-600 hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-[#6F4E37] hover:text-white text-gray-400 rounded-full w-10 h-10 flex items-center justify-center z-10"
                 onClick={e => { e.stopPropagation(); setCurrentImage((prev) => (prev + 1) % selectedProduct.imagenes.length); }}
                 aria-label="Next image"
               >
@@ -208,7 +211,7 @@ const FeaturedProducts = () => {
                   />
                 ))}
               </div>
-              <span className="text-2xl font-bold text-green-400 mb-2 block">${selectedProduct.precio}</span>
+              <span className="text-2xl font-bold text-[#6F4E37] mb-2 block">${selectedProduct.precio}</span>
               <p className="text-gray-200 mb-4">
                 Stock: <span className="font-semibold text-white">{selectedProduct.stock}</span>
               </p>
@@ -223,11 +226,11 @@ const FeaturedProducts = () => {
                   max={selectedProduct.stock}
                   value={cantidad}
                   onChange={(e) => setCantidad(Number(e.target.value))}
-                  className="w-20 px-3 py-2 border border-green-600 rounded-lg bg-gray-900 text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-green-600"
+                  className="w-20 px-3 py-2 border border-[#6F4E37] rounded-lg bg-gray-900 text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-[#6F4E37]"
                 />
               </div>
               <button
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-bold shadow-lg transition-colors text-xl w-full mb-3 animate-bounce-once"
+                className="bg-[#6F4E37] hover:bg-[#5a3c28] text-white px-6 py-3 rounded-full font-bold shadow-lg transition-colors text-xl w-full mb-3 animate-bounce-once"
                 onClick={() => {
                   const userId = localStorage.getItem("userId") || "guest";
                   const cartKey = `cart_${userId}`;
@@ -267,6 +270,18 @@ const FeaturedProducts = () => {
           </div>
         </div>
       )}
+      <style jsx>{`
+        .animate-pulse-slow-cafe {
+          animation: pulse-cafe 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .animate-pulse-cafe {
+          animation: pulse-cafe 7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-cafe {
+          0%, 100% { opacity: 0.7; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.15); }
+        }
+      `}</style>
     </>
   );
 };

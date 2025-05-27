@@ -13,10 +13,10 @@ const CenterToast = ({ show, onClose, onLogin }: { show: boolean, onClose: () =>
   if (!show) return null;
   return (
     <div className="fixed left-1/2 top-20 z-[13000] -translate-x-1/2 flex items-start justify-center w-full pointer-events-none">
-      <div className="bg-gray-900 border border-red-600 rounded-2xl shadow-2xl px-8 py-7 flex flex-col items-center gap-4 animate-pop-in pointer-events-auto">
+      <div className="bg-gray-900 border border-[#6F4E37] rounded-2xl shadow-2xl px-8 py-7 flex flex-col items-center gap-4 animate-pop-in pointer-events-auto">
         <span className="text-lg text-white font-semibold text-center">Debes iniciar sesión para finalizar la compra</span>
         <button
-          className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition"
+          className="bg-[#6F4E37] hover:bg-[#5a3c28] text-white font-bold py-2 px-6 rounded-xl shadow-md transition"
           onClick={onLogin}
         >
           Iniciar sesión
@@ -39,14 +39,14 @@ const PaymentModal = ({ show, onClose, cart, onPay }: { show: boolean, onClose: 
   const [metodo, setMetodo] = useState('Tarjeta');
   return (
     <div className="fixed left-1/2 top-20 z-[13500] -translate-x-1/2 flex items-start justify-center w-full pointer-events-none">
-      <div className="bg-gray-900 rounded-3xl shadow-2xl p-10 max-w-md w-full flex flex-col items-center relative animate-pop-in pointer-events-auto border-2 border-green-700">
+      <div className="bg-[#18181b] rounded-3xl shadow-2xl p-10 max-w-md w-full flex flex-col items-center relative animate-pop-in pointer-events-auto border-2 border-[#6F4E37]">
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-red-600 text-2xl font-bold"
           onClick={onClose}
           aria-label="Cerrar modal"
         >×</button>
         <div className="flex flex-col items-center mb-6">
-          <h2 className="text-2xl font-bold text-green-400 mb-2 drop-shadow">Pago de tu compra</h2>
+          <h2 className="text-2xl font-bold text-[#6F4E37] mb-2 drop-shadow">Pago de tu compra</h2>
           <p className="text-gray-200 text-center">Revisa el resumen y confirma tu pago</p>
         </div>
         <div className="w-full mb-6">
@@ -58,9 +58,9 @@ const PaymentModal = ({ show, onClose, cart, onPay }: { show: boolean, onClose: 
               </li>
             ))}
           </ul>
-          <div className="flex justify-between font-bold text-lg border-t border-green-700 pt-3">
+          <div className="flex justify-between font-bold text-lg border-t border-[#6F4E37] pt-3">
             <span className="text-gray-200">Total</span>
-            <span className="text-green-400 drop-shadow-lg">${total.toFixed(2)}</span>
+            <span className="text-[#6F4E37] drop-shadow-lg">${total.toFixed(2)}</span>
           </div>
         </div>
         {/* Métodos de pago */}
@@ -68,7 +68,7 @@ const PaymentModal = ({ show, onClose, cart, onPay }: { show: boolean, onClose: 
           <label className="block text-gray-200 font-semibold mb-2">Método de pago</label>
           <div className="flex gap-3 justify-center mb-4">
             <button
-              className={`px-4 py-2 rounded-lg border font-bold transition-colors ${metodo === 'Tarjeta' ? 'bg-green-600 text-white border-green-700' : 'bg-gray-800 text-gray-200 border-gray-600'}`}
+              className={`px-4 py-2 rounded-lg border font-bold transition-colors ${metodo === 'Tarjeta' ? 'bg-[#6F4E37] text-white border-[#6F4E37]' : 'bg-gray-800 text-gray-200 border-gray-600'}`}
               onClick={() => setMetodo('Tarjeta')}
               type="button"
             >
@@ -92,12 +92,12 @@ const PaymentModal = ({ show, onClose, cart, onPay }: { show: boolean, onClose: 
           {/* Campos dinámicos según método de pago */}
           {metodo === 'Tarjeta' && (
             <div className="flex flex-col gap-3">
-              <input type="text" placeholder="Número de tarjeta" className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-600" />
+              <input type="text" placeholder="Número de tarjeta" className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-[#6F4E37] focus:outline-none focus:ring-2 focus:ring-[#6F4E37]" />
               <div className="flex gap-3">
-                <input type="text" placeholder="MM/AA" className="w-1/2 px-4 py-2 rounded-lg bg-gray-800 text-white border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-600" />
-                <input type="text" placeholder="CVV" className="w-1/2 px-4 py-2 rounded-lg bg-gray-800 text-white border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-600" />
+                <input type="text" placeholder="MM/AA" className="w-1/2 px-4 py-2 rounded-lg bg-gray-800 text-white border border-[#6F4E37] focus:outline-none focus:ring-2 focus:ring-[#6F4E37]" />
+                <input type="text" placeholder="CVV" className="w-1/2 px-4 py-2 rounded-lg bg-gray-800 text-white border border-[#6F4E37] focus:outline-none focus:ring-2 focus:ring-[#6F4E37]" />
               </div>
-              <input type="text" placeholder="Nombre en la tarjeta" className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-600" />
+              <input type="text" placeholder="Nombre en la tarjeta" className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-[#6F4E37] focus:outline-none focus:ring-2 focus:ring-[#6F4E37]" />
             </div>
           )}
           {metodo === 'PayPal' && (
@@ -112,7 +112,7 @@ const PaymentModal = ({ show, onClose, cart, onPay }: { show: boolean, onClose: 
           )}
         </div>
         <button
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl shadow-md transition text-lg"
+          className="w-full bg-[#6F4E37] hover:bg-[#5a3c28] text-white font-bold py-3 px-6 rounded-xl shadow-md transition text-lg"
           onClick={onPay}
         >
           Pagar ahora
@@ -236,8 +236,8 @@ const Header = () => {
       color: '#fff',
       customClass: {
         popup: 'rounded-3xl shadow-2xl',
-        title: 'text-green-400',
-        icon: 'text-green-400',
+        title: 'text-[#6F4E37]',
+        icon: 'text-[#6F4E37]',
       },
       didOpen: (popup) => {
         popup.classList.add('animate-pop-in');
